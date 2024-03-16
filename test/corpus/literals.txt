@@ -6,7 +6,7 @@ PROGRAM Main
 x := 1_000_000_000; // Underscore separators
 x := 1__000; // Repeating underscores
 x := 1000__; // Trailing underscores
-x := _10_00; // This is not a number, but is a legal variable
+x := _10_00; // This is not a integer, but is a legal variable
 x := -1___0___0_; // Leading signs are unary expressions because they can apply to variables
 x := + 200000_00000;
 END_PROGRAM
@@ -15,36 +15,36 @@ END_PROGRAM
 
 (source_file
   (program_definition
-    ProgramName: (identifier)
+    programName: (identifier)
     (assignment
       (variable
-        Name: (identifier))
-      (number))
+        name: (identifier))
+      (integer))
     (inline_comment)
     (assignment
       (variable
-        Name: (identifier))
-      (number))
+        name: (identifier))
+      (integer))
     (inline_comment)
     (assignment
       (variable
-        Name: (identifier))
-      (number))
+        name: (identifier))
+      (integer))
     (inline_comment)
     (assignment
       (variable
-        Name: (identifier))
+        name: (identifier))
       (variable
-        Name: (identifier)))
+        name: (identifier)))
     (inline_comment)
     (assignment
       (variable
-        Name: (identifier))
+        name: (identifier))
       (unary_expression
-        (number)))
+        (integer)))
     (inline_comment)
     (assignment
       (variable
-        Name: (identifier))
+        name: (identifier))
       (unary_expression
-        (number)))))
+        (integer)))))
