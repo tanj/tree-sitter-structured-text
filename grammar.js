@@ -22,7 +22,8 @@ module.exports = grammar({
   conflicts: $ => [
     [$.case],
     [$.variable],
-    [$.variable, $.call_expression]
+    [$.variable, $.call_expression],
+    [$.body_only_definition]
   ],
   
   supertypes: $ => [
@@ -37,13 +38,15 @@ module.exports = grammar({
   rules: {
     source_file: $ => repeat(choice(
       $._definition, 
-      $._declaration
+      $._declaration,
     )),
     
     _definition: $ => choice(
       $.program_definition,
       $.action_definition,
       // function defintion
+      $.function_definition,
+      $.body_only_definition,
     ),
     
     _declaration: $ => choice(
@@ -64,6 +67,20 @@ module.exports = grammar({
       ':',
       repeat($.statement),
       'END_ACTION'
+    ),
+
+    function_definition: $ => seq(
+      'FUNCTION',
+      field('functionName', $.identifier),
+      ':',
+      $._data_type,
+      repeat($.statement),
+      'END_FUNCTION'
+    ),
+
+    body_only_definition: $ => seq(
+      $.statement,
+      repeat($.statement),
     ),
     
     constant_declaration: $ => seq(

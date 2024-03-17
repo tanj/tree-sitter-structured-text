@@ -22,6 +22,14 @@
         "named": true
       },
       {
+        "type": "body_only_definition",
+        "named": true
+      },
+      {
+        "type": "function_definition",
+        "named": true
+      },
+      {
         "type": "program_definition",
         "named": true
       }
@@ -238,6 +246,21 @@
       "types": [
         {
           "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "body_only_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "statement",
           "named": true
         }
       ]
@@ -528,6 +551,44 @@
       "types": [
         {
           "type": "for_range",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_definition",
+    "named": true,
+    "fields": {
+      "functionName": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "basic_data_type",
+          "named": true
+        },
+        {
+          "type": "derived_data_type",
           "named": true
         },
         {
@@ -1032,6 +1093,10 @@
     "named": false
   },
   {
+    "type": "END_FUNCTION",
+    "named": false
+  },
+  {
     "type": "END_IF",
     "named": false
   },
@@ -1053,6 +1118,10 @@
   },
   {
     "type": "FOR",
+    "named": false
+  },
+  {
+    "type": "FUNCTION",
     "named": false
   },
   {
