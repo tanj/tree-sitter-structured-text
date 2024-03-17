@@ -1,5 +1,5 @@
 {
-  "name": "tree-sitter-iec61131-3-st",
+  "name": "tree-sitter-structure-text",
   "version": "0.0.1",
   "description": "IEC 61131-3 Structured Text tree-sitter language parser",
   "main": "bindings/node",
