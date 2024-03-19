@@ -10,3 +10,6 @@ build/target
 /bindings/c/tree-sitter-*.pc
 /build
 /test/sources
+parser.exp
+parser.lib
+parser.obj
