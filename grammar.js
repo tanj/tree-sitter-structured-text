@@ -4,28 +4,28 @@ const unsignedInteger = seq(
 );
 
 const signedInteger = seq(
-  optional(/[\+-]/), 
+  optional(/[\+-]/),
   unsignedInteger
 );
 
 module.exports = grammar({
   name: 'structured_text',
-  
+
   extras: $ => [
     $.inline_comment,
     $.block_comment,
     /\s/
   ],
-  
+
   word: $ => $.identifier,
-  
+
   conflicts: $ => [
     [$.case],
     [$.variable],
     [$.variable, $.call_expression],
     [$.body_only_definition]
   ],
-  
+
   supertypes: $ => [
     $._definition,
     $.statement,
@@ -34,13 +34,13 @@ module.exports = grammar({
     $._expression,
     $._literal
   ],
-  
+
   rules: {
     source_file: $ => repeat(choice(
-      $._definition, 
+      $._definition,
       $._declaration,
     )),
-    
+
     _definition: $ => choice(
       $.program_definition,
       $.action_definition,
@@ -48,19 +48,19 @@ module.exports = grammar({
       $.function_definition,
       $.body_only_definition,
     ),
-    
+
     _declaration: $ => choice(
       $.constant_declaration,
       // variable declaration
     ),
-    
+
     program_definition: $ => seq(
       'PROGRAM',
       field('programName', $.identifier),
       repeat($.statement),
       'END_PROGRAM'
     ),
-    
+
     action_definition: $ => seq(
       'ACTION',
       field('ActionName', $.identifier),
@@ -82,17 +82,17 @@ module.exports = grammar({
       $.statement,
       repeat($.statement),
     ),
-    
+
     constant_declaration: $ => seq(
       'VAR', 'CONSTANT',
       repeat($.constant),
       'END_VAR'
     ),
-    
-    /* 
+
+    /*
       Statements
     */
-    
+
     statement: $ => choice(
       $.assignment,
       $.expression_statement,
@@ -100,29 +100,29 @@ module.exports = grammar({
       $._control_statement,
       $._loop_statement
     ),
-    
+
     _control_statement: $ => choice(
       $.case_statement,
       $.if_statement
     ),
-    
+
     _loop_statement: $ => choice(
       $.for_statement,
       $.repeat_statement,
       $.while_statement
     ),
-    
+
     assignment: $ => seq(
       $.variable,
       ':=',
       $._expression,
       ';'
     ),
-    
+
     expression_statement: $ => seq($.variable, ';'),
-    
+
     call_statement: $ => seq($.call_expression, ';'),
-    
+
     if_statement: $ => seq(
       'IF',
       field('condition', $._expression),
@@ -133,7 +133,7 @@ module.exports = grammar({
       'END_IF',
       optional(';')
     ),
-    
+
     case_statement: $ => seq(
       'CASE',
       field('caseControlValue', $.variable),
@@ -143,7 +143,7 @@ module.exports = grammar({
       'END_CASE',
       optional(';')
     ),
-    
+
     for_statement: $ => seq(
       'FOR',
       $.for_range,
@@ -152,7 +152,7 @@ module.exports = grammar({
       'END_FOR',
       optional(';')
     ),
-    
+
     repeat_statement: $ => seq(
       'REPEAT',
       repeat($.statement),
@@ -161,7 +161,7 @@ module.exports = grammar({
       'END_REPEAT',
       optional(';')
     ),
-    
+
     while_statement: $ => seq(
       'WHILE',
       $._expression,
@@ -170,70 +170,70 @@ module.exports = grammar({
       'END_WHILE',
       optional(';')
     ),
-    
+
     /*
       Statement components
     */
-    
+
     elseif_clause: $ => seq(
       'ELSIF',
       field('elsifCondition', $._expression),
       'THEN',
       repeat($.statement)
     ),
-    
+
     else_clause: $ => seq(
       'ELSE',
       repeat($.statement)
     ),
-    
+
     case: $ => seq(
       $.case_value,
       ':',
       repeat($.statement)
     ),
-    
+
     else_case: $ => seq(
       'ELSE',
       repeat($.statement)
     ),
-    
+
     case_value: $ => commaSep1(choice(
       alias(token(signedInteger), $.integer),
       $.index_range,
       $.identifier
     )),
-    
+
     index_range: $ => seq(
       field('lowerBound', choice(alias(token(signedInteger), $.integer), $.identifier)),
       '..',
       field('upperBound', choice(alias(token(signedInteger), $.integer), $.identifier))
     ),
-    
+
     for_range: $ => seq(
       $.statement_initialization,
       'TO',
       $._expression,
       optional(seq('BY', $._expression))
     ),
-    
+
     statement_initialization: $ => seq(
-      $.variable, 
-      ':=', 
+      $.variable,
+      ':=',
       $._expression
     ),
-    
+
     /*
       Declarations
     */
-    
+
     constant: $ => seq(
       field('name', $.identifier),
       ':',
-      $._data_type, 
+      $._data_type,
       $.variable_initialization
     ),
-    
+
     /*
       Declaration components
     */
@@ -245,11 +245,11 @@ module.exports = grammar({
       ),
       ';'
     ),
-    
+
     /*
       Expressions
     */
-    
+
     _expression: $ => choice(
       $._literal,
       $.variable,
@@ -259,15 +259,15 @@ module.exports = grammar({
       $.mask_expression,
       $.call_expression
     ),
-    
+
     parenthesis_expression: $ => seq('(', $._expression, ')'),
-    
+
     unary_expression: $ => prec(6, choice(
       seq('NOT', $._expression),
       seq('+', $._expression),
       seq('-', $._expression)
     )),
-    
+
     binary_expression: $ => choice(
       prec.left(5, seq($._expression, '**', $._expression)), // Not supported in Automation Studio
       prec.left(4, seq($._expression, '*', $._expression)),
@@ -285,13 +285,13 @@ module.exports = grammar({
       prec.left(0, seq($._expression, 'XOR', $._expression)),
       prec.left(0, seq($._expression, 'OR', $._expression))
     ),
-    
+
     parameter_assignment: $ => seq(
       alias($.identifier, $.parameter),
       ':=',
       $._expression
     ),
-    
+
     call_expression: $ => seq(
       field('functionName', $.identifier),
       optional($.index), // Only for function block instances
@@ -299,37 +299,37 @@ module.exports = grammar({
       commaSep(field('input', choice($.parameter_assignment, $._expression))), // Function calls have ordered lists allowing expressions
       ')'
     ),
-    
+
     mask_expression: $ => seq(
-      $.variable, 
-      token.immediate('.'), 
+      $.variable,
+      token.immediate('.'),
       /\d{1,2}/
     ),
-    
+
     repetition_expression: $ => seq(
       $._expression,
       '(', $._expression, ')'
     ),
-    
+
     /*
       Variables
     */
-    
+
     variable: $ => seq(
       field('name', $.identifier),
       optional($.index),
       optional($.structure_member)
     ),
-    
+
     index: $ => seq(
       '[',
       field('dim1', $._expression),
       optional(seq(',', field('dim2', $._expression))),
       ']'
     ),
-    
+
     structure_member: $ => seq(token.immediate('.'), choice($.variable, $.call_expression)),
-    
+
     /*
       Data types
     */
@@ -338,7 +338,7 @@ module.exports = grammar({
       alias($.identifier, $.derived_data_type),
       $.array_type
     ),
-    
+
     basic_data_type: $ => choice(
       'BOOL',
       /U?[SD]?INT/,
@@ -353,7 +353,7 @@ module.exports = grammar({
       'BYTE',
       /D?WORD/
     ),
-    
+
     array_type: $ => seq(
       'ARRAY',
       '[',
@@ -362,11 +362,11 @@ module.exports = grammar({
       'OF',
       choice($.basic_data_type, alias($.identifier, $.derived_data_type))
     ),
-    
+
     /*
       Literals
     */
-    
+
     _literal: $ => choice(
       $.boolean,
       $.integer,
@@ -381,13 +381,13 @@ module.exports = grammar({
       $.string,
       $.wstring
     ),
-    
+
     boolean: $ => token(choice('TRUE', 'FALSE')),
-    
+
     integer: $ => {
       return token(unsignedInteger);
     },
-    
+
     floating_point: $ => {
       const scientific = seq(/[eE]/, signedInteger);
       return token(seq(
@@ -402,13 +402,13 @@ module.exports = grammar({
         )
       ));
     },
-    
+
     binary: $ => token(seq('2#', /_*[0-1]/, repeat(choice('_', /[0-1]/)))),
-    
+
     octal: $ => token(seq('8#', /_*[0-7]/, repeat(choice('_', /[0-7]/)))),
-    
+
     hexidecimal: $ => token(seq('16#', /_*[0-9a-fA-F]/, repeat(choice('_', /[0-9a-fA-F]/)))),
-    
+
     time: $ => token(seq(
       'T#',
       optional('-'),
@@ -418,13 +418,13 @@ module.exports = grammar({
       optional(/\d{1,9}[sS]/),
       optional(/\d{1,9}((ms)|(MS))/)
     )),
-    
+
     date: $ => token(seq(
       'D#',
       /\d(_?\d){3}/, // Year
       /(-\d(_?\d)?){2}/ // Month and day
     )),
-    
+
     time_of_day: $ => token(seq(
       'TOD#',
       /\d(_?\d)?/,
@@ -436,39 +436,39 @@ module.exports = grammar({
         optional(seq('.', /\d(_?\d)*/))
       ))
     )),
-    
+
     date_and_time: $ => seq(
       'DT#',
       /\d(_?\d){3}/, // Year
       /(-\d(_?\d)?){3}/, // Month, day, hour
       /(:\d(_?\d)?){1,2}/ // Minute, second
     ),
-    
+
     string: $ => token(prec.left(seq(
       '\'',
       /.*/,
       '\''
     ))),
-    
+
     wstring: $ => token(prec.left(seq(
       '"',
       /.*/,
       '"'
     ))),
-    
+
     inline_comment: $ => token(seq('//', /.*/)),
-    
+
     // http://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment/36328890#36328890
     block_comment: $ => token(seq(
       '(*',
       /[^*]*\*+([^*)][^*]*\*+)*/,
       ')'
     )),
-    
+
     identifier: $ => /[a-zA-Z_]\w*/,
-    
+
   }
-  
+
 });
 
 function commaSep1(rule) {
