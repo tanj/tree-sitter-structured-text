@@ -92,3 +92,39 @@
  "SUPER"
  "THIS"
 ] @variable.builtin
+
+[
+ (variable)
+ ] @variable
+
+[
+ (structure_member)
+ ] @variable.member
+
+[
+ (string)
+ (wstring)
+ ] @string
+
+[
+ (boolean)
+ ] @boolean
+
+[
+ (integer)
+ ] @number
+
+[
+ (floating_point)
+ ] @number.float
+
+[
+ (basic_data_type)
+ ] @type.builtin
+
+[
+ (derived_data_type)
+ (array_type)
+ (pointer_type)
+ (reference_type)
+ ] @type

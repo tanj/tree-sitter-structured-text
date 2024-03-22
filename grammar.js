@@ -548,7 +548,9 @@ module.exports = grammar({
     _data_type: $ => choice(
       $.basic_data_type,
       alias(seq($.identifier, optional($.structure_member)), $.derived_data_type),
-      $.array_type
+      $.array_type,
+      $.pointer_type,
+      $.reference_type,
     ),
 
     basic_data_type: $ => choice(

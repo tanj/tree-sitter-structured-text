@@ -2915,6 +2915,14 @@
         {
           "type": "SYMBOL",
           "name": "array_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pointer_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "reference_type"
         }
       ]
     },
