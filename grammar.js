@@ -44,14 +44,29 @@ module.exports = grammar({
     _definition: $ => choice(
       $.program_definition,
       $.action_definition,
-      // function defintion
       $.function_definition,
+      $.function_block_definition,
+      $.method_definition,
+      $.type_definition,
+      $.struct_definition,
+      $.union_definition,
+      $.enum_definition,
       $.body_only_definition,
     ),
 
     _declaration: $ => choice(
-      $.constant_declaration,
-      // variable declaration
+      $.var_declaration,
+      $.var_input_declaration,
+      $.var_output_declaration,
+      $.var_in_out_declaration,
+      $.var_global_declaration,
+      $.var_temp_declaration,
+      $.var_stat_declaration,
+      $.var_external_declaration,
+      $.var_instance_declaration,
+      $.var_access_declaration,
+      $.var_config_declaration,
+      $.var_generic_constant_declaration,
     ),
 
     program_definition: $ => seq(
@@ -78,15 +93,169 @@ module.exports = grammar({
       'END_FUNCTION'
     ),
 
+    method_definition: $ => seq(
+      'METHOD',
+      field('methodName', $.identifier),
+      ':',
+      $._data_type,
+      repeat($.statement),
+      'END_METHOD'
+    ),
+
+    function_block_definition: $ => seq(
+      'FUNCTION_BLOCK',
+      field('functionName', $.identifier),
+      optional($.extend),
+      optional($.implement),
+      // TODO EXTENDS AND IMPLEMENTS
+      choice(repeat($.statement), $.method_definition),
+      'END_FUNCTION_BLOCK'
+    ),
+
     body_only_definition: $ => seq(
       $.statement,
       repeat($.statement),
     ),
 
-    constant_declaration: $ => seq(
-      'VAR', 'CONSTANT',
+    variable_attribute: $ => choice(
+      'CONSTANT',
+      'RETAIN',
+      'PERSISTENT',
+    ),
+
+    var_declaration: $ => seq(
+      'VAR',
+      optional($.variable_attribute),
       repeat($.constant),
       'END_VAR'
+    ),
+
+    var_input_declaration: $ => seq(
+      'VAR_INPUT',
+      optional($.variable_attribute),
+      repeat($.constant),
+      'END_VAR'
+    ),
+
+    var_output_declaration: $ => seq(
+      'VAR_OUTPUT',
+      optional($.variable_attribute),
+      repeat($.constant),
+      'END_VAR'
+    ),
+
+    var_in_out_declaration: $ => seq(
+      'VAR_IN_OUT',
+      optional($.variable_attribute),
+      repeat($.constant),
+      'END_VAR'
+    ),
+
+    var_global_declaration: $ => seq(
+      'VAR_GLOBAL',
+      optional($.variable_attribute),
+      repeat($.constant),
+      'END_VAR'
+    ),
+
+    var_temp_declaration: $ => seq(
+      'VAR_TEMP',
+      optional($.variable_attribute),
+      repeat($.constant),
+      'END_VAR'
+    ),
+
+    var_stat_declaration: $ => seq(
+      'VAR_STAT',
+      optional($.variable_attribute),
+      repeat($.constant),
+      'END_VAR'
+    ),
+
+    var_external_declaration: $ => seq(
+      'VAR_EXTERNAL',
+      optional($.variable_attribute),
+      repeat($.constant),
+      'END_VAR'
+    ),
+
+    var_instance_declaration: $ => seq(
+      'VAR_INST',
+      optional($.variable_attribute),
+      repeat($.constant),
+      'END_VAR'
+    ),
+
+    var_config_declaration: $ => seq(
+      'VAR_CONFIG',
+      optional($.variable_attribute),
+      repeat($.constant),
+      'END_VAR'
+    ),
+
+    var_access_declaration: $ => seq(
+      'VAR_ACCESS',
+      optional($.variable_attribute),
+      repeat($.constant),
+      'END_VAR'
+    ),
+
+    var_generic_constant_declaration: $ => seq(
+      'VAR_GENERIC',
+      'CONSTANT',
+      repeat($.constant),
+      'END_VAR'
+    ),
+
+    type_definition: $ => seq(
+      'TYPE',
+      field('typeName', $.variable),
+      ':',
+      $._data_type,
+      ';',
+      'END_TYPE',
+    ),
+
+    struct_definition: $ => seq(
+      'TYPE',
+      field('typeName', $.variable),
+      ':',
+      optional($.extend),
+      'STRUCT',
+      repeat($.constant),
+      'END_STRUCT',
+      'END_TYPE',
+    ),
+
+    union_definition: $ => seq(
+      'TYPE',
+      field('typeName', $.variable),
+      ':',
+      optional($.extend),
+      'UNION',
+      repeat($.constant),
+      'END_UNION',
+      'END_TYPE',
+    ),
+
+    enum_definition: $ => seq(
+      'TYPE',
+      field('typeName', $.variable),
+      ':',
+      '(',
+      commaSep($.constant),
+      ')',
+      'END_TYPE',
+    ),
+
+    extend: $ => seq(
+      'EXTENDS',
+      $.identifier,
+    ),
+
+    implement: $ => seq(
+      'IMPLEMENTS',
+      commaSep1($.identifier),
     ),
 
     /*
@@ -98,7 +267,10 @@ module.exports = grammar({
       $.expression_statement,
       $.call_statement,
       $._control_statement,
-      $._loop_statement
+      $._loop_statement,
+      $.early_termination_statement,
+      $.set_expression,
+      $.reset_expression,
     ),
 
     _control_statement: $ => choice(
@@ -117,6 +289,21 @@ module.exports = grammar({
       ':=',
       $._expression,
       ';'
+    ),
+
+
+    set_expression: $ => seq(
+      $.identifier,
+      'S=',
+      $._expression,
+      ';',
+    ),
+
+    reset_expression: $ => seq(
+      $.identifier,
+      'R=',
+      $._expression,
+      ';',
     ),
 
     expression_statement: $ => seq($.variable, ';'),
@@ -171,6 +358,16 @@ module.exports = grammar({
       optional(';')
     ),
 
+
+    early_termination_statement: $ => seq(
+      choice(
+        'EXIT',
+        'CONTINUE',
+        'RETURN',
+      ),
+      ';',
+    ),
+
     /*
       Statement components
     */
@@ -223,6 +420,7 @@ module.exports = grammar({
       $._expression
     ),
 
+
     /*
       Declarations
     */
@@ -271,16 +469,24 @@ module.exports = grammar({
     binary_expression: $ => choice(
       prec.left(5, seq($._expression, '**', $._expression)), // Not supported in Automation Studio
       prec.left(4, seq($._expression, '*', $._expression)),
+      prec.left(4, seq($._expression, 'MUL', $._expression)),
       prec.left(4, seq($._expression, '/', $._expression)),
+      prec.left(4, seq($._expression, 'DIV', $._expression)),
       prec.left(4, seq($._expression, 'MOD', $._expression)),
       prec.left(3, seq($._expression, '+', $._expression)),
       prec.left(3, seq($._expression, '-', $._expression)),
       prec.left(2, seq($._expression, '<', $._expression)),
+      prec.left(2, seq($._expression, 'LT', $._expression)),
       prec.left(2, seq($._expression, '>', $._expression)),
+      prec.left(2, seq($._expression, 'GT', $._expression)),
       prec.left(2, seq($._expression, '<=', $._expression)),
+      prec.left(2, seq($._expression, 'LE', $._expression)),
       prec.left(2, seq($._expression, '>=', $._expression)),
+      prec.left(2, seq($._expression, 'GE', $._expression)),
       prec.left(1, seq($._expression, '=', $._expression)),
+      prec.left(1, seq($._expression, 'EQ', $._expression)),
       prec.left(1, seq($._expression, '<>', $._expression)),
+      prec.left(1, seq($._expression, 'NE', $._expression)),
       prec.left(0, seq($._expression, 'AND', $._expression)),
       prec.left(0, seq($._expression, 'XOR', $._expression)),
       prec.left(0, seq($._expression, 'OR', $._expression))
@@ -293,7 +499,7 @@ module.exports = grammar({
     ),
 
     call_expression: $ => seq(
-      field('functionName', $.identifier),
+      field('functionName', choice($.builtin_function, $.identifier)),
       optional($.index), // Only for function block instances
       '(',
       commaSep(field('input', choice($.parameter_assignment, $._expression))), // Function calls have ordered lists allowing expressions
@@ -361,6 +567,18 @@ module.exports = grammar({
       ']',
       'OF',
       choice($.basic_data_type, alias($.identifier, $.derived_data_type))
+    ),
+
+    pointer_type: $ => seq(
+      'POINTER',
+      'TO',
+      choice($.basic_data_type, alias($.identifier, $.derived_data_type)),
+    ),
+
+    reference_type: $ => seq(
+      'REFERENCE',
+      'TO',
+      choice($.basic_data_type, alias($.identifier, $.derived_data_type)),
     ),
 
     /*
@@ -466,6 +684,41 @@ module.exports = grammar({
     )),
 
     identifier: $ => /[a-zA-Z_]\w*/,
+
+    builtin_function: $ => choice(
+      "ABS",
+      "ACOS",
+      "ADD",
+      "ADR",
+      "ASIN",
+      "ATAN",
+      "BITADR",
+      "COS",
+      "EXP",
+      "EXPT",
+      "INDEXOF",
+      "LOG",
+      "LN",
+      "MAX",
+      "MIN",
+      "MUX",
+      "ROL",
+      "ROR",
+      "SEL",
+      "SHL",
+      "SHR",
+      "SIN",
+      "SIZEOF",
+      "SUB",
+      "SQRT",
+      "TAN",
+      "TRUNC",
+    ),
+
+    builtin_variale: $ => choice(
+      "SUPER",
+      "THIS",
+    ),
 
   }
 
