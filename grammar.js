@@ -23,7 +23,7 @@ module.exports = grammar({
     [$.case],
     [$.variable],
     [$.variable, $.call_expression],
-    [$.body_only_definition]
+    [$.body_only_definition],
   ],
 
   supertypes: $ => [
@@ -72,6 +72,7 @@ module.exports = grammar({
     program_definition: $ => seq(
       'PROGRAM',
       field('programName', $.identifier),
+      repeat($._declaration),
       repeat($.statement),
       'END_PROGRAM'
     ),
@@ -80,6 +81,7 @@ module.exports = grammar({
       'ACTION',
       field('ActionName', $.identifier),
       ':',
+      repeat($._declaration),
       repeat($.statement),
       'END_ACTION'
     ),
@@ -89,6 +91,7 @@ module.exports = grammar({
       field('functionName', $.identifier),
       ':',
       $._data_type,
+      repeat($._declaration),
       repeat($.statement),
       'END_FUNCTION'
     ),
@@ -98,6 +101,7 @@ module.exports = grammar({
       field('methodName', $.identifier),
       ':',
       $._data_type,
+      repeat($._declaration),
       repeat($.statement),
       'END_METHOD'
     ),
@@ -107,6 +111,7 @@ module.exports = grammar({
       field('functionName', $.identifier),
       optional($.extend),
       optional($.implement),
+      repeat($._declaration),
       // TODO EXTENDS AND IMPLEMENTS
       choice(repeat($.statement), $.method_definition),
       'END_FUNCTION_BLOCK'
@@ -439,7 +444,8 @@ module.exports = grammar({
       ':=',
       choice(
         commaSep1(choice($._expression, $.repetition_expression)),
-        seq('[', commaSep1(choice($._expression, $.repetition_expression)), ']')
+        seq('(', commaSep1($.statement_initialization), ')'),
+        seq('[', commaSep1(choice($._expression, $.repetition_expression)), ']'),
       ),
       ';'
     ),
@@ -541,7 +547,7 @@ module.exports = grammar({
     */
     _data_type: $ => choice(
       $.basic_data_type,
-      alias($.identifier, $.derived_data_type),
+      alias(seq($.identifier, optional($.structure_member)), $.derived_data_type),
       $.array_type
     ),
 

@@ -1,0 +1,339 @@
+===================
+Alarm Delay Program
+===================
+
+PROGRAM AlarmDelays
+VAR
+	tmrElecAlarm : TOF := (PT:=T#2S);
+	tmrElecTrip : TOF := (PT:=T#2S);
+	tmrCommTrouble : TON := (PT:=T#500MS);
+
+	logCommCombine : SELUtils.Logger_SPS := (
+		Tag_Name:= 'VTL.Status_CommCombine',
+		Device_Name:= 'SEL_RTAC',
+		On_Message:= 'ASSERTED',
+		Off_Message:= 'DEASSERTED',
+		Category:= 'AlarmDelays',
+		Priority:= '',
+		Log_Initial_State:=TRUE
+	);
+END_VAR
+
+tmrElecAlarm(IN:=Tags.rb01ElectricalAlarm.operLatchOn.ctlVal);
+VTL.Status_ElecAlarmLatchOff.stVal := NOT tmrElecAlarm.Q;
+VTL.Status_ElecAlarmLatchOff.q := Tags.rb01ElectricalAlarm.status.q;
+VTL.Status_ElecAlarmLatchOff.t := Tags.rb01ElectricalAlarm.status.t;
+
+
+tmrElecTrip(IN:=Tags.rb02ElectricalTrip.operLatchOn.ctlVal);
+VTL.Status_ElecTripLatchOff.stVal := NOT tmrElecAlarm.Q;
+VTL.Status_ElecTripLatchOff.q := Tags.rb02ElectricalTrip.status.q;
+VTL.Status_ElecTripLatchOff.t := Tags.rb02ElectricalTrip.status.t;
+
+// VTL.Status_CommCombine := OR_SPS(Tags.CTM_SPS_COMM_CH_FAIL_A, Tags.CTM_SPS_COMM_CH_FAIL_B)
+tmrCommTrouble(IN:=VTL.Status_CommCombine.stVal);
+VTL.Status_CommTroubleDelay.stVal := tmrCommTrouble.Q;
+VTL.Status_CommTroubleDelay.q := VTL.Status_CommCombine.q;
+VTL.Status_CommTroubleDelay.t := VTL.Status_CommCombine.t;
+
+logCommCombine(
+	EN:= TRUE,
+	Single_Point_Status_Input:= VTL.Status_CommCombine,
+	Off_Message:= CONCAT('DEASSERTED debounce time: ', TIME_TO_STRING(tmrCommTrouble.ET))
+);
+END_PROGRAM
+
+---
+
+    (source_file
+      (program_definition
+        (identifier)
+        (var_declaration
+          (constant
+            (identifier)
+            (derived_data_type)
+            (variable_initialization
+              (statement_initialization
+                (variable
+                  (identifier))
+                (time))))
+          (constant
+            (identifier)
+            (derived_data_type)
+            (variable_initialization
+              (statement_initialization
+                (variable
+                  (identifier))
+                (time))))
+          (constant
+            (identifier)
+            (derived_data_type)
+            (variable_initialization
+              (statement_initialization
+                (variable
+                  (identifier))
+                (time))))
+          (constant
+            (identifier)
+            (derived_data_type)
+            (derived_data_type
+              (variable
+                (identifier)))
+            (variable_initialization
+              (statement_initialization
+                (variable
+                  (identifier))
+                (string))
+              (statement_initialization
+                (variable
+                  (identifier))
+                (string))
+              (statement_initialization
+                (variable
+                  (identifier))
+                (string))
+              (statement_initialization
+                (variable
+                  (identifier))
+                (string))
+              (statement_initialization
+                (variable
+                  (identifier))
+                (string))
+              (statement_initialization
+                (variable
+                  (identifier))
+                (string))
+              (statement_initialization
+                (variable
+                  (identifier))
+                (boolean)))))
+        (call_statement
+          (call_expression
+            (identifier)
+            (parameter_assignment
+              (parameter)
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier)
+                    (structure_member
+                      (variable
+                        (identifier)
+                        (structure_member
+                          (variable
+                            (identifier)))))))))))
+        (assignment
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier))))))
+          (unary_expression
+            (variable
+              (identifier)
+              (structure_member
+                (variable
+                  (identifier))))))
+        (assignment
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier))))))
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier)
+                    (structure_member
+                      (variable
+                        (identifier)))))))))
+        (assignment
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier))))))
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier)
+                    (structure_member
+                      (variable
+                        (identifier)))))))))
+        (call_statement
+          (call_expression
+            (identifier)
+            (parameter_assignment
+              (parameter)
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier)
+                    (structure_member
+                      (variable
+                        (identifier)
+                        (structure_member
+                          (variable
+                            (identifier)))))))))))
+        (assignment
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier))))))
+          (unary_expression
+            (variable
+              (identifier)
+              (structure_member
+                (variable
+                  (identifier))))))
+        (assignment
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier))))))
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier)
+                    (structure_member
+                      (variable
+                        (identifier)))))))))
+        (assignment
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier))))))
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier)
+                    (structure_member
+                      (variable
+                        (identifier)))))))))
+        (inline_comment)
+        (call_statement
+          (call_expression
+            (identifier)
+            (parameter_assignment
+              (parameter)
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier)
+                    (structure_member
+                      (variable
+                        (identifier)))))))))
+        (assignment
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier))))))
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)))))
+        (assignment
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier))))))
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier)))))))
+        (assignment
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier))))))
+          (variable
+            (identifier)
+            (structure_member
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier)))))))
+        (call_statement
+          (call_expression
+            (identifier)
+            (parameter_assignment
+              (parameter)
+              (boolean))
+            (parameter_assignment
+              (parameter)
+              (variable
+                (identifier)
+                (structure_member
+                  (variable
+                    (identifier)))))
+            (parameter_assignment
+              (parameter)
+              (call_expression
+                (identifier)
+                (string)
+                (call_expression
+                  (identifier)
+                  (variable
+                    (identifier)
+                    (structure_member
+                      (variable
+                        (identifier)))))))))))
