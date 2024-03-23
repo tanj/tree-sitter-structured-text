@@ -106,17 +106,26 @@
  (wstring)
  ] @string
 
+
 [
  (boolean)
- ] @boolean
+ ] @boolean @constant
+
+[
+ (time)
+ (date)
+ (time_of_day)
+ (date_and_time)
+ ] @constant
 
 [
  (integer)
- ] @number
+ (binary)
+ (octal)
+ (hexidecimal)
+ ] @constant.numeric.integer @constant.numeric
 
-[
- (floating_point)
- ] @number.float
+(floating_point) @constant.numeric.float
 
 [
  (basic_data_type)
