@@ -14,6 +14,7 @@ module.exports = grammar({
   extras: $ => [
     $.inline_comment,
     $.block_comment,
+    $.doc_comment,
     /\s/
   ],
 
@@ -683,6 +684,7 @@ module.exports = grammar({
     ))),
 
     inline_comment: $ => token(seq('//', /.*/)),
+    doc_comment: $ => token(seq('///', /.*/)),
 
     // http://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment/36328890#36328890
     block_comment: $ => token(seq(

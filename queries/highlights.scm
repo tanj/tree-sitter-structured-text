@@ -95,6 +95,7 @@
 
 [
  (variable)
+ (identifier)
  ] @variable
 
 [
@@ -106,10 +107,7 @@
  (wstring)
  ] @string
 
-
-[
- (boolean)
- ] @boolean @constant
+(boolean) @constant.builtin.boolean
 
 [
  (time)

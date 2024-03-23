@@ -2394,6 +2394,10 @@
     "named": true
   },
   {
+    "type": "doc_comment",
+    "named": true
+  },
+  {
     "type": "floating_point",
     "named": true
   },
