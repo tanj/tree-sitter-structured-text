@@ -12,9 +12,9 @@ module.exports = grammar({
   name: 'structured_text',
 
   extras: $ => [
+    $.doc_comment,
     $.inline_comment,
     $.block_comment,
-    $.doc_comment,
     /\s/
   ],
 
