@@ -3710,6 +3710,29 @@
         }
       }
     },
+    "doc_comment": {
+      "type": "TOKEN",
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "///"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[^\\n]*"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[ \\n]*"
+            }
+          ]
+        }
+      }
+    },
     "inline_comment": {
       "type": "TOKEN",
       "content": {
@@ -3718,22 +3741,6 @@
           {
             "type": "STRING",
             "value": "//"
-          },
-          {
-            "type": "PATTERN",
-            "value": ".*"
-          }
-        ]
-      }
-    },
-    "doc_comment": {
-      "type": "TOKEN",
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "///"
           },
           {
             "type": "PATTERN",

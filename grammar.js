@@ -683,8 +683,9 @@ module.exports = grammar({
       '"'
     ))),
 
+    doc_comment: $ => token(repeat1(seq('///', /[^\n]*/, /[ \n]*/))),
+
     inline_comment: $ => token(seq('//', /.*/)),
-    doc_comment: $ => token(seq('///', /.*/)),
 
     // http://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment/36328890#36328890
     block_comment: $ => token(seq(
