@@ -256,12 +256,12 @@ module.exports = grammar({
 
     extend: $ => seq(
       'EXTENDS',
-      $.identifier,
+      $._identifier_path,
     ),
 
     implement: $ => seq(
       'IMPLEMENTS',
-      commaSep1($.identifier),
+      commaSep1($._identifier_path),
     ),
 
     /*
@@ -299,14 +299,14 @@ module.exports = grammar({
 
 
     set_expression: $ => seq(
-      $.identifier,
+      $.variable,
       'S=',
       $._expression,
       ';',
     ),
 
     reset_expression: $ => seq(
-      $.identifier,
+      $.variable,
       'R=',
       $._expression,
       ';',
@@ -435,7 +435,8 @@ module.exports = grammar({
       field('name', $.identifier),
       ':',
       $._data_type,
-      $.variable_initialization
+      optional($.variable_initialization),
+      ';',
     ),
 
     /*
@@ -448,7 +449,6 @@ module.exports = grammar({
         seq('(', commaSep1($.statement_initialization), ')'),
         seq('[', commaSep1(choice($._expression, $.repetition_expression)), ']'),
       ),
-      ';'
     ),
 
     /*
@@ -548,11 +548,13 @@ module.exports = grammar({
     */
     _data_type: $ => choice(
       $.basic_data_type,
-      alias(seq($.identifier, optional($.structure_member)), $.derived_data_type),
+      alias($._identifier_path, $.derived_data_type),
       $.array_type,
       $.pointer_type,
       $.reference_type,
     ),
+
+    _identifier_path: $ => seq($.identifier, repeat($.structure_member)),
 
     basic_data_type: $ => choice(
       'BOOL',
@@ -575,19 +577,19 @@ module.exports = grammar({
       commaSep1($.index_range),
       ']',
       'OF',
-      choice($.basic_data_type, alias($.identifier, $.derived_data_type))
+      $._data_type,
     ),
 
     pointer_type: $ => seq(
       'POINTER',
       'TO',
-      choice($.basic_data_type, alias($.identifier, $.derived_data_type)),
+      $._data_type,
     ),
 
     reference_type: $ => seq(
       'REFERENCE',
       'TO',
-      choice($.basic_data_type, alias($.identifier, $.derived_data_type)),
+      $._data_type,
     ),
 
     /*

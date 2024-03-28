@@ -51,34 +51,38 @@ END_PROGRAM
         (var_declaration
           (constant
             (identifier)
-            (derived_data_type)
-            (variable_initialization
-              (statement_initialization
-                (variable
-                  (identifier))
-                (time))))
-          (constant
-            (identifier)
-            (derived_data_type)
-            (variable_initialization
-              (statement_initialization
-                (variable
-                  (identifier))
-                (time))))
-          (constant
-            (identifier)
-            (derived_data_type)
-            (variable_initialization
-              (statement_initialization
-                (variable
-                  (identifier))
-                (time))))
-          (constant
-            (identifier)
-            (derived_data_type)
             (derived_data_type
-              (variable
-                (identifier)))
+              (identifier))
+            (variable_initialization
+              (statement_initialization
+                (variable
+                  (identifier))
+                (time))))
+          (constant
+            (identifier)
+            (derived_data_type
+              (identifier))
+            (variable_initialization
+              (statement_initialization
+                (variable
+                  (identifier))
+                (time))))
+          (constant
+            (identifier)
+            (derived_data_type
+              (identifier))
+            (variable_initialization
+              (statement_initialization
+                (variable
+                  (identifier))
+                (time))))
+          (constant
+            (identifier)
+            (derived_data_type
+              (identifier)
+              (structure_member
+                (variable
+                  (identifier))))
             (variable_initialization
               (statement_initialization
                 (variable

@@ -1,0 +1,160 @@
+=========================
+Function Block Definition
+=========================
+
+FUNCTION_BLOCK SubTest_105 IMPLEMENTS PCI2.IResetCommand
+VAR_INPUT
+	// Data Store
+	itfDataStore : PceQueryItfs.IDataStoreQueue;
+	ixTest : DINT := 1;
+END_VAR
+VAR_OUTPUT
+	xError : BOOL;
+	eErrorID : ENO.errno;
+	subtest : tSubTest;
+	ixSetpoint : UINT;
+	xSetpointDone1 : BOOL;
+END_VAR
+VAR
+	mx : UINT;
+	aSetpoint : ARRAY [0..c_uiMaxMsIndex] OF tMotorSetpoint;
+	axSetpointDone : ARRAY [0..c_uiMaxMsIndex] OF POINTER TO BOOL := [ADR(xSetpointDone1), ADR(xSetpointDone2), ADR(xSetpointDone3)];
+
+	aLimit : ARRAY [0..1] OF tMotorLimit;
+	pmlDutyCycle : POINTER TO tMotorLimit := ADR(aLimit[0]);
+	pmlPhaseShift : POINTER TO tMotorLimit := ADR(aLimit[1]);
+END_VAR
+VAR CONSTANT
+	c_MsgID : SyslogItfs.MSG_ID := 'SubTest_105';
+	// Max Motor Setpoint Index
+	c_uiMaxMsIndex : UINT := 2;
+END_VAR
+END_FUNCTION_BLOCK
+
+---
+
+    (source_file
+      (function_block_definition
+        (identifier)
+        (implement
+          (identifier)
+          (structure_member
+            (variable
+              (identifier))))
+        (var_input_declaration
+          (inline_comment)
+          (constant
+            (identifier)
+            (derived_data_type
+              (identifier)
+              (structure_member
+                (variable
+                  (identifier)))))
+          (constant
+            (identifier)
+            (basic_data_type)
+            (variable_initialization
+              (integer))))
+        (var_output_declaration
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (derived_data_type
+              (identifier)
+              (structure_member
+                (variable
+                  (identifier)))))
+          (constant
+            (identifier)
+            (derived_data_type
+              (identifier)))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type)))
+        (var_declaration
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (array_type
+              (index_range
+                (integer)
+                (identifier))
+              (derived_data_type
+                (identifier))))
+          (constant
+            (identifier)
+            (array_type
+              (index_range
+                (integer)
+                (identifier))
+              (pointer_type
+                (basic_data_type)))
+            (variable_initialization
+              (call_expression
+                (builtin_function)
+                (variable
+                  (identifier)))
+              (call_expression
+                (builtin_function)
+                (variable
+                  (identifier)))
+              (call_expression
+                (builtin_function)
+                (variable
+                  (identifier)))))
+          (constant
+            (identifier)
+            (array_type
+              (index_range
+                (integer)
+                (integer))
+              (derived_data_type
+                (identifier))))
+          (constant
+            (identifier)
+            (pointer_type
+              (derived_data_type
+                (identifier)))
+            (variable_initialization
+              (call_expression
+                (builtin_function)
+                (variable
+                  (identifier)
+                  (index
+                    (integer))))))
+          (constant
+            (identifier)
+            (pointer_type
+              (derived_data_type
+                (identifier)))
+            (variable_initialization
+              (call_expression
+                (builtin_function)
+                (variable
+                  (identifier)
+                  (index
+                    (integer)))))))
+        (var_declaration
+          (variable_attribute)
+          (constant
+            (identifier)
+            (derived_data_type
+              (identifier)
+              (structure_member
+                (variable
+                  (identifier))))
+            (variable_initialization
+              (string)))
+          (inline_comment)
+          (constant
+            (identifier)
+            (basic_data_type)
+            (variable_initialization
+              (integer))))))

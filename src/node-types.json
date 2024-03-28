@@ -286,6 +286,10 @@
       "required": true,
       "types": [
         {
+          "type": "array_type",
+          "named": true
+        },
+        {
           "type": "basic_data_type",
           "named": true
         },
@@ -295,6 +299,14 @@
         },
         {
           "type": "index_range",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "reference_type",
           "named": true
         }
       ]
@@ -542,15 +554,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": false,
+      "multiple": true,
+      "required": true,
       "types": [
         {
-          "type": "call_expression",
+          "type": "identifier",
           "named": true
         },
         {
-          "type": "variable",
+          "type": "structure_member",
           "named": true
         }
       ]
@@ -663,11 +675,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "structure_member",
           "named": true
         }
       ]
@@ -936,6 +952,10 @@
         {
           "type": "identifier",
           "named": true
+        },
+        {
+          "type": "structure_member",
+          "named": true
         }
       ]
     }
@@ -1152,11 +1172,23 @@
       "required": true,
       "types": [
         {
+          "type": "array_type",
+          "named": true
+        },
+        {
           "type": "basic_data_type",
           "named": true
         },
         {
           "type": "derived_data_type",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "reference_type",
           "named": true
         }
       ]
@@ -1245,11 +1277,23 @@
       "required": true,
       "types": [
         {
+          "type": "array_type",
+          "named": true
+        },
+        {
           "type": "basic_data_type",
           "named": true
         },
         {
           "type": "derived_data_type",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "reference_type",
           "named": true
         }
       ]
@@ -1307,10 +1351,6 @@
         {
           "type": "_expression",
           "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
         }
       ]
     }
@@ -1325,10 +1365,6 @@
       "types": [
         {
           "type": "_expression",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         }
       ]
@@ -1477,7 +1513,7 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
