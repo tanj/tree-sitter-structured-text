@@ -95,6 +95,8 @@
   (block_comment)
 ] @comment @spell
 
+(doc_comment) @comment.documentation @spell
+(pragma) @comment.documentation
 
 [
  "SUPER"
