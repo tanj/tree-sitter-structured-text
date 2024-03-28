@@ -145,3 +145,5 @@
  (pointer_type)
  (reference_type)
  ] @type
+
+(call_expression (identifier)) @function
