@@ -97,8 +97,16 @@ module.exports = grammar({
       'END_FUNCTION'
     ),
 
+    access: $ => choice(
+      'PUBLIC',
+      'PROTECTED',
+      'PRIVATE',
+      'INTERNAL',
+    ),
+
     method_definition: $ => seq(
       'METHOD',
+      optional($.access),
       field('methodName', $.identifier),
       ':',
       $._data_type,

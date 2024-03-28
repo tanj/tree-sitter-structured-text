@@ -204,6 +204,11 @@
     ]
   },
   {
+    "type": "access",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "action_definition",
     "named": true,
     "fields": {
@@ -1054,6 +1059,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "access",
+          "named": true
+        },
         {
           "type": "array_type",
           "named": true
@@ -2170,6 +2179,10 @@
     "named": false
   },
   {
+    "type": "INTERNAL",
+    "named": false
+  },
+  {
     "type": "LE",
     "named": false
   },
@@ -2234,7 +2247,19 @@
     "named": false
   },
   {
+    "type": "PRIVATE",
+    "named": false
+  },
+  {
     "type": "PROGRAM",
+    "named": false
+  },
+  {
+    "type": "PROTECTED",
+    "named": false
+  },
+  {
+    "type": "PUBLIC",
     "named": false
   },
   {

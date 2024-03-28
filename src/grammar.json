@@ -233,12 +233,45 @@
         }
       ]
     },
+    "access": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "PUBLIC"
+        },
+        {
+          "type": "STRING",
+          "value": "PROTECTED"
+        },
+        {
+          "type": "STRING",
+          "value": "PRIVATE"
+        },
+        {
+          "type": "STRING",
+          "value": "INTERNAL"
+        }
+      ]
+    },
     "method_definition": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
           "value": "METHOD"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "access"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "FIELD",
