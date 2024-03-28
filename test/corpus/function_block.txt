@@ -45,7 +45,10 @@ VAR
   ix : UINT;
   xPass : BOOL;
 END_VAR
-xPass := TRUE;
+	xPass := TRUE;
+	{analysis -63,-66} // intermediate result and possible 16bit truncation
+	proCheckTestData := (iRepeatCount * -1) - 100;
+	{analysis +63,+66}
 
 END_METHOD
 
@@ -198,4 +201,18 @@ END_FUNCTION_BLOCK
           (assignment
             (variable
               (identifier))
-            (boolean)))))
+            (boolean))
+          (pragma)
+          (inline_comment)
+          (assignment
+            (variable
+              (identifier))
+            (binary_expression
+              (parenthesis_expression
+                (binary_expression
+                  (variable
+                    (identifier))
+                  (unary_expression
+                    (integer))))
+              (integer)))
+          (pragma))))

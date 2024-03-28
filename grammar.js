@@ -15,6 +15,7 @@ module.exports = grammar({
     $.doc_comment,
     $.inline_comment,
     $.block_comment,
+    $.pragma,
     /\s/
   ],
 
@@ -703,6 +704,12 @@ module.exports = grammar({
       '(*',
       /[^*]*\*+([^*)][^*]*\*+)*/,
       ')'
+    )),
+
+    pragma: $ => token(seq(
+      '{',
+      /[^}]*/,
+      '}',
     )),
 
     identifier: $ => /[a-zA-Z_]\w*/,

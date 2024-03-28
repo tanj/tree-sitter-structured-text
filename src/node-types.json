@@ -2487,6 +2487,10 @@
     "named": true
   },
   {
+    "type": "pragma",
+    "named": true
+  },
+  {
     "type": "string",
     "named": true
   },
