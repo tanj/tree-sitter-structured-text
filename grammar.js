@@ -108,8 +108,10 @@ module.exports = grammar({
       'METHOD',
       optional($.access),
       field('methodName', $.identifier),
-      ':',
-      $._data_type,
+      optional(
+        seq(':',
+            $._data_type,)
+      ),
       repeat($._declaration),
       repeat($.statement),
       'END_METHOD'
@@ -121,9 +123,7 @@ module.exports = grammar({
       optional($.extend),
       optional($.implement),
       repeat($._declaration),
-      // TODO EXTENDS AND IMPLEMENTS
-      repeat($.method_definition),
-      repeat($.statement),
+      repeat(choice($.method_definition, $.statement)),
       'END_FUNCTION_BLOCK'
     ),
 
