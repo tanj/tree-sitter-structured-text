@@ -122,7 +122,7 @@ module.exports = grammar({
       optional($.implement),
       repeat($._declaration),
       // TODO EXTENDS AND IMPLEMENTS
-      choice(repeat($.statement), $.method_definition),
+      choice($.method_definition, repeat($.statement)),
       'END_FUNCTION_BLOCK'
     ),
 
