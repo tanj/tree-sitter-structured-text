@@ -18,14 +18,14 @@
  (struct_definition)
  (union_definition)
  (enum_definition)
- ] @indent
+ ] @indent.begin @indent
 
 [
  (case)
  (else_case)
  (elseif_clause)
  (else_clause)
- ] @indent @extend
+ ] @indent.branch @indent @extend
 
 [
  "END_ACTION"
@@ -42,4 +42,4 @@
  "END_UNION"
  "END_VAR"
  "END_WHILE"
- ] @outdent
+ ] @indent.end @outdent
