@@ -99,8 +99,7 @@
 (pragma) @comment.documentation
 
 [
- "SUPER"
- "THIS"
+ (builtin_variable)
 ] @variable.builtin
 
 [

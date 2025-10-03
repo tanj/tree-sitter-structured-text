@@ -111,7 +111,7 @@ module.exports = grammar({
       field('methodName', $.identifier),
       optional(
         seq(':',
-            $._data_type,)
+          $._data_type,)
       ),
       repeat($._declaration),
       repeat($.statement),
@@ -516,7 +516,7 @@ module.exports = grammar({
     ),
 
     call_expression: $ => seq(
-      field('functionName', choice($.builtin_function, $.identifier)),
+      field('functionName', choice($.builtin_function, $.builtin_variable, $.identifier)),
       optional($.index), // Only for function block instances
       '(',
       commaSep(field('input', choice($.parameter_assignment, $._expression))), // Function calls have ordered lists allowing expressions
@@ -742,9 +742,11 @@ module.exports = grammar({
       "SQRT",
       "TAN",
       "TRUNC",
+      "__QUERYINTERFACE",
+      "__QUERYPOINTER",
     ),
 
-    builtin_variale: $ => choice(
+    builtin_variable: $ => choice(
       "SUPER",
       "THIS",
     ),

@@ -373,6 +373,11 @@
     "fields": {}
   },
   {
+    "type": "builtin_variable",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "call_expression",
     "named": true,
     "fields": {
@@ -382,6 +387,10 @@
         "types": [
           {
             "type": "builtin_function",
+            "named": true
+          },
+          {
+            "type": "builtin_variable",
             "named": true
           },
           {
@@ -1382,6 +1391,7 @@
   {
     "type": "source_file",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -2439,12 +2449,21 @@
     "named": false
   },
   {
+    "type": "__QUERYINTERFACE",
+    "named": false
+  },
+  {
+    "type": "__QUERYPOINTER",
+    "named": false
+  },
+  {
     "type": "binary",
     "named": true
   },
   {
     "type": "block_comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "boolean",
@@ -2456,7 +2475,8 @@
   },
   {
     "type": "doc_comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "floating_point",
@@ -2472,7 +2492,8 @@
   },
   {
     "type": "inline_comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "integer",
@@ -2488,7 +2509,8 @@
   },
   {
     "type": "pragma",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "string",
