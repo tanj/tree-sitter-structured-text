@@ -112,9 +112,9 @@ END_PROGRAM
                 (variable
                   (identifier))
                 (string
-                  (string_content
-                    (escape_sequence)
-                    (escape_sequence))))
+                  (escape_sequence)
+                  (escape_sequence)
+                  (string_content)))
               (statement_initialization
                 (variable
                   (identifier))

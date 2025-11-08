@@ -3689,7 +3689,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "string_content"
+            "name": "_string_content"
           }
         },
         {
@@ -3709,7 +3709,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "string_content"
+            "name": "_string_content"
           }
         },
         {
@@ -3718,7 +3718,7 @@
         }
       ]
     },
-    "string_content": {
+    "_string_content": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -3727,16 +3727,24 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "ALIAS",
+              "content": {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PREC",
+                  "value": 1,
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[^'\"$\\n]+"
+                  }
+                }
+              },
+              "named": true,
+              "value": "string_content"
+            },
+            {
               "type": "SYMBOL",
               "name": "escape_sequence"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_not_escape_sequence"
-            },
-            {
-              "type": "PATTERN",
-              "value": "[^']"
             }
           ]
         }

@@ -685,21 +685,21 @@ module.exports = grammar({
 
     string: $ => seq(
       '\'',
-      repeat($.string_content),
+      repeat($._string_content),
       '\''
     ),
 
     wstring: $ => seq(
       '"',
-      repeat($.string_content),
+      repeat($._string_content),
       '"'
     ),
 
-    string_content: $ => prec.right(repeat1(
+    _string_content: $ => prec.right(repeat1(
       choice(
+        alias(token.immediate(prec(1, /[^'"$\n]+/)), $.string_content),
         $.escape_sequence,
-        $._not_escape_sequence,
-        /[^']/,
+        // /[^'"$]{1}/,
       ))),
 
     escape_sequence: _ => token.immediate(prec(1, seq(
