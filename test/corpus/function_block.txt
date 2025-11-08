@@ -174,7 +174,8 @@ END_FUNCTION_BLOCK
                 (variable
                   (identifier))))
             (variable_initialization
-              (string)))
+              (string
+                (string_content))))
           (inline_comment)
           (constant
             (identifier)

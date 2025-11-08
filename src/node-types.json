@@ -1468,6 +1468,36 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "string_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string_content",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "struct_definition",
     "named": true,
     "fields": {
@@ -1903,6 +1933,33 @@
         }
       ]
     }
+  },
+  {
+    "type": "wstring",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "string_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "$",
+    "named": false
+  },
+  {
+    "type": "'",
+    "named": false
   },
   {
     "type": "(",
@@ -2479,6 +2536,10 @@
     "extra": true
   },
   {
+    "type": "escape_sequence",
+    "named": true
+  },
+  {
     "type": "floating_point",
     "named": true
   },
@@ -2513,19 +2574,11 @@
     "extra": true
   },
   {
-    "type": "string",
-    "named": true
-  },
-  {
     "type": "time",
     "named": true
   },
   {
     "type": "time_of_day",
-    "named": true
-  },
-  {
-    "type": "wstring",
     "named": true
   }
 ]

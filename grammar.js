@@ -683,17 +683,34 @@ module.exports = grammar({
       /(:\d(_?\d)?){1,2}/ // Minute, second
     ),
 
-    string: $ => token(prec.left(seq(
+    string: $ => seq(
       '\'',
-      /.*/,
+      repeat($.string_content),
       '\''
+    ),
+
+    wstring: $ => seq(
+      '"',
+      repeat($.string_content),
+      '"'
+    ),
+
+    string_content: $ => prec.right(repeat1(
+      choice(
+        $.escape_sequence,
+        $._not_escape_sequence,
+        /[^']/,
+      ))),
+
+    escape_sequence: _ => token.immediate(prec(1, seq(
+      '$',
+      choice(
+        /[a-fA-F\d]{2}/,
+        /['"rntRNT$]/,
+      ),
     ))),
 
-    wstring: $ => token(prec.left(seq(
-      '"',
-      /.*/,
-      '"'
-    ))),
+    _not_escape_sequence: _ => token.immediate('$'),
 
     doc_comment: $ => token(repeat1(seq('///', /[^\n]*/, /[ \n]*/))),
 

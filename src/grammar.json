@@ -3679,51 +3679,103 @@
       ]
     },
     "string": {
-      "type": "TOKEN",
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "'"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string_content"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "'"
+        }
+      ]
+    },
+    "wstring": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string_content"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
+    },
+    "string_content": {
+      "type": "PREC_RIGHT",
+      "value": 0,
       "content": {
-        "type": "PREC_LEFT",
-        "value": 0,
+        "type": "REPEAT1",
         "content": {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "'"
+              "type": "SYMBOL",
+              "name": "escape_sequence"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_not_escape_sequence"
             },
             {
               "type": "PATTERN",
-              "value": ".*"
-            },
-            {
-              "type": "STRING",
-              "value": "'"
+              "value": "[^']"
             }
           ]
         }
       }
     },
-    "wstring": {
-      "type": "TOKEN",
+    "escape_sequence": {
+      "type": "IMMEDIATE_TOKEN",
       "content": {
-        "type": "PREC_LEFT",
-        "value": 0,
+        "type": "PREC",
+        "value": 1,
         "content": {
           "type": "SEQ",
           "members": [
             {
               "type": "STRING",
-              "value": "\""
+              "value": "$"
             },
             {
-              "type": "PATTERN",
-              "value": ".*"
-            },
-            {
-              "type": "STRING",
-              "value": "\""
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "[a-fA-F\\d]{2}"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "['\"rntRNT$]"
+                }
+              ]
             }
           ]
         }
+      }
+    },
+    "_not_escape_sequence": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "$"
       }
     },
     "doc_comment": {

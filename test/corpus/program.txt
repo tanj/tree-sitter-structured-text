@@ -13,8 +13,7 @@ VAR
 		Device_Name:= 'SEL_RTAC',
 		On_Message:= 'ASSERTED',
 		Off_Message:= 'DEASSERTED',
-		Category:= 'AlarmDelays',
-		Priority:= '',
+		Category:= 'AlarmDelays', Priority:= '$'$NHello',
 		Log_Initial_State:=TRUE
 	);
 END_VAR
@@ -87,27 +86,35 @@ END_PROGRAM
               (statement_initialization
                 (variable
                   (identifier))
-                (string))
+                (string
+                  (string_content)))
               (statement_initialization
                 (variable
                   (identifier))
-                (string))
+                (string
+                  (string_content)))
               (statement_initialization
                 (variable
                   (identifier))
-                (string))
+                (string
+                  (string_content)))
               (statement_initialization
                 (variable
                   (identifier))
-                (string))
+                (string
+                  (string_content)))
               (statement_initialization
                 (variable
                   (identifier))
-                (string))
+                (string
+                  (string_content)))
               (statement_initialization
                 (variable
                   (identifier))
-                (string))
+                (string
+                  (string_content
+                    (escape_sequence)
+                    (escape_sequence))))
               (statement_initialization
                 (variable
                   (identifier))
@@ -333,7 +340,8 @@ END_PROGRAM
               (parameter)
               (call_expression
                 (identifier)
-                (string)
+                (string
+                  (string_content))
                 (call_expression
                   (identifier)
                   (variable
