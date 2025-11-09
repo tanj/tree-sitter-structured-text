@@ -1,0 +1,72 @@
+================
+Basic Data Types
+================
+
+PROGRAM Main
+VAR
+    x : BOOL;
+    ui : UINT;
+    di : DINT;
+    udi : UDINT;
+    t : TIME;
+    dt0 : DT;
+    dt1 : DATE_AND_TIME;
+    s0 : STRING;
+    s255 : STRING(255);
+    ws0 : WSTRING;
+    by0 : BYTE;
+    w : WORD;
+    dw : DWORD;
+    pw : POINTER TO WORD;
+END_VAR
+END_PROGRAM
+
+---
+
+    (source_file
+      (program_definition
+        (identifier)
+        (var_declaration
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (pointer_type
+              (basic_data_type))))))

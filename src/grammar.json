@@ -3025,7 +3025,7 @@
         },
         {
           "type": "PATTERN",
-          "value": "W?STRING"
+          "value": "W?STRING(\\(\\d+\\))?"
         },
         {
           "type": "STRING",

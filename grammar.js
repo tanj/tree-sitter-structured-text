@@ -576,7 +576,7 @@ module.exports = grammar({
       'TOD',
       'DATE_AND_TIME',
       'DT',
-      /W?STRING/,
+      /W?STRING(\(\d+\))?/,
       'BYTE',
       /D?WORD/
     ),
