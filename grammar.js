@@ -706,7 +706,7 @@ module.exports = grammar({
       '$',
       choice(
         /[a-fA-F\d]{2}/,
-        /['"rntRNT$]/,
+        /['"rnltpRNLTP$]/,
       ),
     ))),
 
