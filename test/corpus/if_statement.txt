@@ -1,0 +1,35 @@
+============
+if statement
+============
+
+IF xBool THEN
+	i := 123.0;
+ELSIF xB2 THEN
+	i := 12;
+ELSE
+	tmr := T#12S;
+END_IF
+
+---
+
+(source_file
+  (body_only_definition
+    (if_statement
+    (variable 
+      (identifier))
+	(assignment
+	  (variable
+	    (identifier))
+	  (floating_point))
+	(elseif_clause
+	  (variable
+	    (identifier))
+	  (assignment
+	    (variable
+		  (identifier))
+	  (integer)))
+	(else_clause
+	  (assignment
+	    (variable
+		  (identifier))
+		(time))))))

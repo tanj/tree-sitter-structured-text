@@ -1,0 +1,38 @@
+===============
+String Literals
+===============
+
+PROGRAM Main
+Syslog.SyslogError(itfLogger, 'proRecord', PSB.Format_1('qupRecord $N executed with an error returned: {}', TO_STRING(qupRecord.eErrorID)));
+END_PROGRAM
+
+---
+    (source_file
+      (program_definition
+        (identifier)
+        (expression_statement
+          (variable
+            (identifier)
+            (structure_member
+              (call_expression
+                (identifier)
+                (variable
+                  (identifier))
+                (string
+                  (string_content))
+                (variable
+                  (identifier)
+                  (structure_member
+                    (call_expression
+                      (identifier)
+                      (string
+                        (string_content)
+                        (escape_sequence)
+                        (string_content))
+                      (call_expression
+                        (identifier)
+                        (variable
+                          (identifier)
+                          (structure_member
+                            (variable
+                              (identifier))))))))))))))

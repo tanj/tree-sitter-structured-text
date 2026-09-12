@@ -1,0 +1,42 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "structured_text",
+      "camelcase": "StructuredText",
+      "title": "IEC61131 Structured Text",
+      "scope": "source.structured_text",
+      "file-types": [
+        "structured_text"
+      ],
+      "injection-regex": "^structured_text$",
+      "class-name": "TreeSitterStructuredText"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "StructuredText grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "John te Bokkel",
+        "email": "tanj.tanj@gmail.com",
+        "url": ""
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/tree-sitter/tree-sitter-structured_text",
+      "funding": ""
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "java": false,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": true
+  }
+}

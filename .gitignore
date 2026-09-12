@@ -1,3 +1,15 @@
 node_modules/
 package-lock.json
-build/
+build/target
+.build/
+/*.a
+/*.dylib
+/*.so*
+*.o
+/bindings/c/*.h
+/bindings/c/tree-sitter-*.pc
+/build
+/test/sources
+parser.exp
+parser.lib
+parser.obj

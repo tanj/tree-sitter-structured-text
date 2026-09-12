@@ -1,0 +1,219 @@
+=========================
+Function Block Definition
+=========================
+
+FUNCTION_BLOCK SubTest_105 IMPLEMENTS PCI2.IResetCommand
+VAR_INPUT
+  // Data Store
+  itfDataStore : PceQueryItfs.IDataStoreQueue;
+  ixTest : DINT := 1;
+END_VAR
+VAR_OUTPUT
+  xError : BOOL;
+  eErrorID : ENO.errno;
+  subtest : tSubTest;
+  ixSetpoint : UINT;
+  xSetpointDone1 : BOOL;
+END_VAR
+VAR
+  mx : UINT;
+  aSetpoint : ARRAY [0..c_uiMaxMsIndex] OF tMotorSetpoint;
+  axSetpointDone : ARRAY [0..c_uiMaxMsIndex] OF POINTER TO BOOL := [ADR(xSetpointDone1), ADR(xSetpointDone2), ADR(xSetpointDone3)];
+
+  aLimit : ARRAY [0..1] OF tMotorLimit;
+  pmlDutyCycle : POINTER TO tMotorLimit := ADR(aLimit[0]);
+  pmlPhaseShift : POINTER TO tMotorLimit := ADR(aLimit[1]);
+END_VAR
+VAR CONSTANT
+  c_MsgID : SyslogItfs.MSG_ID := 'SubTest_105';
+  // Max Motor Setpoint Index
+  c_uiMaxMsIndex : UINT := 2;
+END_VAR
+
+ixTest := 1;
+
+/// Check and set `SetpointDone` bools and evaluate limits
+///
+/// | proCheckTestData > 0: Pass
+/// | proCheckTestData < 0: Failed
+/// | proCheckTestData < -100: Incomplete
+///
+METHOD PROTECTED proCheckTestData : INT
+VAR_INPUT
+END_VAR
+VAR
+  ix : UINT;
+  xPass : BOOL;
+END_VAR
+	xPass := TRUE;
+	{analysis -63,-66} // intermediate result and possible 16bit truncation
+	proCheckTestData := (iRepeatCount * -1) - 100;
+	{analysis +63,+66}
+
+END_METHOD
+
+END_FUNCTION_BLOCK
+
+---
+
+    (source_file
+      (function_block_definition
+        (identifier)
+        (implement
+          (identifier)
+          (structure_member
+            (variable
+              (identifier))))
+        (var_input_declaration
+          (inline_comment)
+          (constant
+            (identifier)
+            (derived_data_type
+              (identifier)
+              (structure_member
+                (variable
+                  (identifier)))))
+          (constant
+            (identifier)
+            (basic_data_type)
+            (variable_initialization
+              (integer))))
+        (var_output_declaration
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (derived_data_type
+              (identifier)
+              (structure_member
+                (variable
+                  (identifier)))))
+          (constant
+            (identifier)
+            (derived_data_type
+              (identifier)))
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (basic_data_type)))
+        (var_declaration
+          (constant
+            (identifier)
+            (basic_data_type))
+          (constant
+            (identifier)
+            (array_type
+              (index_range
+                (integer)
+                (identifier))
+              (derived_data_type
+                (identifier))))
+          (constant
+            (identifier)
+            (array_type
+              (index_range
+                (integer)
+                (identifier))
+              (pointer_type
+                (basic_data_type)))
+            (variable_initialization
+              (call_expression
+                (builtin_function)
+                (variable
+                  (identifier)))
+              (call_expression
+                (builtin_function)
+                (variable
+                  (identifier)))
+              (call_expression
+                (builtin_function)
+                (variable
+                  (identifier)))))
+          (constant
+            (identifier)
+            (array_type
+              (index_range
+                (integer)
+                (integer))
+              (derived_data_type
+                (identifier))))
+          (constant
+            (identifier)
+            (pointer_type
+              (derived_data_type
+                (identifier)))
+            (variable_initialization
+              (call_expression
+                (builtin_function)
+                (variable
+                  (identifier)
+                  (index
+                    (integer))))))
+          (constant
+            (identifier)
+            (pointer_type
+              (derived_data_type
+                (identifier)))
+            (variable_initialization
+              (call_expression
+                (builtin_function)
+                (variable
+                  (identifier)
+                  (index
+                    (integer)))))))
+        (var_declaration
+          (variable_attribute)
+          (constant
+            (identifier)
+            (derived_data_type
+              (identifier)
+              (structure_member
+                (variable
+                  (identifier))))
+            (variable_initialization
+              (string
+                (string_content))))
+          (inline_comment)
+          (constant
+            (identifier)
+            (basic_data_type)
+            (variable_initialization
+              (integer))))
+        (assignment
+          (variable
+            (identifier))
+          (integer))
+        (doc_comment)
+        (method_definition
+          (access)
+          (identifier)
+          (basic_data_type)
+          (var_input_declaration)
+          (var_declaration
+            (constant
+              (identifier)
+              (basic_data_type))
+            (constant
+              (identifier)
+              (basic_data_type)))
+          (assignment
+            (variable
+              (identifier))
+            (boolean))
+          (pragma)
+          (inline_comment)
+          (assignment
+            (variable
+              (identifier))
+            (binary_expression
+              (parenthesis_expression
+                (binary_expression
+                  (variable
+                    (identifier))
+                  (unary_expression
+                    (integer))))
+              (integer)))
+          (pragma))))
