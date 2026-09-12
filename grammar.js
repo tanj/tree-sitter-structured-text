@@ -8,7 +8,7 @@ const signedInteger = seq(
   unsignedInteger
 );
 
-module.exports = grammar({
+export default grammar({
   name: 'structured_text',
 
   extras: $ => [

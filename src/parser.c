@@ -6,7 +6,7 @@
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 #endif
 
-#define LANGUAGE_VERSION 14
+#define LANGUAGE_VERSION 15
 #define STATE_COUNT 899
 #define LARGE_STATE_COUNT 114
 #define SYMBOL_COUNT 260
@@ -17,7 +17,7 @@
 #define MAX_ALIAS_SEQUENCE_LENGTH 8
 #define MAX_RESERVED_WORD_SET_SIZE 0
 #define PRODUCTION_ID_COUNT 25
-#define SUPERTYPE_COUNT 0
+#define SUPERTYPE_COUNT 6
 
 enum ts_symbol_identifiers {
   sym_identifier = 1,
@@ -2907,6 +2907,75 @@ static const TSStateId ts_primary_state_ids[STATE_COUNT] = {
   [898] = 898,
 };
 
+static const TSSymbol ts_supertype_symbols[SUPERTYPE_COUNT] = {
+  sym__control_statement,
+  sym__definition,
+  sym__expression,
+  sym__literal,
+  sym__loop_statement,
+  sym_statement,
+};
+
+static const TSMapSlice ts_supertype_map_slices[] = {
+  [sym__control_statement] = {.index = 0, .length = 2},
+  [sym__definition] = {.index = 2, .length = 10},
+  [sym__expression] = {.index = 12, .length = 7},
+  [sym__literal] = {.index = 19, .length = 12},
+  [sym__loop_statement] = {.index = 31, .length = 3},
+  [sym_statement] = {.index = 34, .length = 8},
+};
+
+static const TSSymbol ts_supertype_map_entries[] = {
+  [0] =
+    sym_case_statement,
+    sym_if_statement,
+  [2] =
+    sym_action_definition,
+    sym_body_only_definition,
+    sym_enum_definition,
+    sym_function_block_definition,
+    sym_function_definition,
+    sym_method_definition,
+    sym_program_definition,
+    sym_struct_definition,
+    sym_type_definition,
+    sym_union_definition,
+  [12] =
+    sym__literal,
+    sym_binary_expression,
+    sym_call_expression,
+    sym_mask_expression,
+    sym_parenthesis_expression,
+    sym_unary_expression,
+    sym_variable,
+  [19] =
+    sym_binary,
+    sym_boolean,
+    sym_date,
+    sym_date_and_time,
+    sym_floating_point,
+    sym_hexidecimal,
+    sym_integer,
+    sym_octal,
+    sym_string,
+    sym_time,
+    sym_time_of_day,
+    sym_wstring,
+  [31] =
+    sym_for_statement,
+    sym_repeat_statement,
+    sym_while_statement,
+  [34] =
+    sym__control_statement,
+    sym__loop_statement,
+    sym_assignment,
+    sym_call_statement,
+    sym_early_termination_statement,
+    sym_expression_statement,
+    sym_reset_expression,
+    sym_set_expression,
+};
+
 static bool ts_lex(TSLexer *lexer, TSStateId state) {
   START_LEXER();
   eof = lexer->eof(lexer);
@@ -2959,9 +3028,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '{') ADVANCE(193);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') ADVANCE(187);
-      if (lookahead != 0 &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(194);
+      if (lookahead != 0) ADVANCE(194);
       END_STATE();
     case 2:
       ADVANCE_MAP(
@@ -3150,9 +3217,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
     case 11:
       if (lookahead == ')') ADVANCE(200);
       if (lookahead == '*') ADVANCE(11);
-      if (lookahead != 0 &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(14);
+      if (lookahead != 0) ADVANCE(14);
       END_STATE();
     case 12:
       if (lookahead == ')') ADVANCE(143);
@@ -3163,9 +3228,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 14:
       if (lookahead == '*') ADVANCE(11);
-      if (lookahead != 0 &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(14);
+      if (lookahead != 0) ADVANCE(14);
       END_STATE();
     case 15:
       if (lookahead == '-') ADVANCE(75);
@@ -3468,9 +3531,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 71:
       if (lookahead == '}') ADVANCE(201);
-      if (lookahead != 0 &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(71);
+      if (lookahead != 0) ADVANCE(71);
       END_STATE();
     case 72:
       if (lookahead == '+' ||
@@ -4034,9 +4095,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '"' &&
           lookahead != '$' &&
-          lookahead != '\'' &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(186);
+          lookahead != '\'') ADVANCE(186);
       END_STATE();
     case 187:
       ACCEPT_TOKEN(aux_sym__string_content_token1);
@@ -4051,9 +4110,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '"' &&
           lookahead != '$' &&
           lookahead != '\'' &&
-          lookahead != '(' &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(194);
+          lookahead != '(') ADVANCE(194);
       END_STATE();
     case 188:
       ACCEPT_TOKEN(aux_sym__string_content_token1);
@@ -4063,9 +4120,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '"' &&
           lookahead != '$' &&
-          lookahead != '\'' &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(189);
+          lookahead != '\'') ADVANCE(189);
       END_STATE();
     case 189:
       ACCEPT_TOKEN(aux_sym__string_content_token1);
@@ -4074,9 +4129,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '"' &&
           lookahead != '$' &&
-          lookahead != '\'' &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(189);
+          lookahead != '\'') ADVANCE(189);
       END_STATE();
     case 190:
       ACCEPT_TOKEN(aux_sym__string_content_token1);
@@ -4085,9 +4138,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '"' &&
           lookahead != '$' &&
-          lookahead != '\'' &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(194);
+          lookahead != '\'') ADVANCE(194);
       END_STATE();
     case 191:
       ACCEPT_TOKEN(aux_sym__string_content_token1);
@@ -4096,9 +4147,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '"' &&
           lookahead != '$' &&
-          lookahead != '\'' &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(194);
+          lookahead != '\'') ADVANCE(194);
       END_STATE();
     case 192:
       ACCEPT_TOKEN(aux_sym__string_content_token1);
@@ -4107,9 +4156,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '"' &&
           lookahead != '$' &&
-          lookahead != '\'' &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(194);
+          lookahead != '\'') ADVANCE(194);
       END_STATE();
     case 193:
       ACCEPT_TOKEN(aux_sym__string_content_token1);
@@ -4118,9 +4165,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '"' &&
           lookahead != '$' &&
-          lookahead != '\'' &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(193);
+          lookahead != '\'') ADVANCE(193);
       END_STATE();
     case 194:
       ACCEPT_TOKEN(aux_sym__string_content_token1);
@@ -4128,9 +4173,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '"' &&
           lookahead != '$' &&
-          lookahead != '\'' &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(194);
+          lookahead != '\'') ADVANCE(194);
       END_STATE();
     case 195:
       ACCEPT_TOKEN(sym_escape_sequence);
@@ -4140,9 +4183,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '\n') ADVANCE(197);
       if (lookahead == ' ') ADVANCE(196);
       if (lookahead == '/') ADVANCE(196);
-      if (lookahead != 0 &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(196);
+      if (lookahead != 0) ADVANCE(196);
       END_STATE();
     case 197:
       ACCEPT_TOKEN(sym_doc_comment);
@@ -4154,16 +4195,12 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       ACCEPT_TOKEN(sym_inline_comment);
       if (lookahead == '/') ADVANCE(196);
       if (lookahead != 0 &&
-          lookahead != '\n' &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(199);
+          lookahead != '\n') ADVANCE(199);
       END_STATE();
     case 199:
       ACCEPT_TOKEN(sym_inline_comment);
       if (lookahead != 0 &&
-          lookahead != '\n' &&
-          lookahead != 0x17f &&
-          lookahead != 0x212a) ADVANCE(199);
+          lookahead != '\n') ADVANCE(199);
       END_STATE();
     case 200:
       ACCEPT_TOKEN(sym_block_comment);
@@ -5831,7 +5868,7 @@ static bool ts_lex_keywords(TSLexer *lexer, TSStateId state) {
   }
 }
 
-static const TSLexMode ts_lex_modes[STATE_COUNT] = {
+static const TSLexerMode ts_lex_modes[STATE_COUNT] = {
   [0] = {.lex_state = 0},
   [1] = {.lex_state = 106},
   [2] = {.lex_state = 106},
@@ -49067,6 +49104,7 @@ TS_PUBLIC const TSLanguage *tree_sitter_structured_text(void) {
     .state_count = STATE_COUNT,
     .large_state_count = LARGE_STATE_COUNT,
     .production_id_count = PRODUCTION_ID_COUNT,
+    .supertype_count = SUPERTYPE_COUNT,
     .field_count = FIELD_COUNT,
     .max_alias_sequence_length = MAX_ALIAS_SEQUENCE_LENGTH,
     .parse_table = &ts_parse_table[0][0],
@@ -49077,6 +49115,9 @@ TS_PUBLIC const TSLanguage *tree_sitter_structured_text(void) {
     .field_names = ts_field_names,
     .field_map_slices = ts_field_map_slices,
     .field_map_entries = ts_field_map_entries,
+    .supertype_map_slices = ts_supertype_map_slices,
+    .supertype_map_entries = ts_supertype_map_entries,
+    .supertype_symbols = ts_supertype_symbols,
     .symbol_metadata = ts_symbol_metadata,
     .public_symbol_map = ts_symbol_map,
     .alias_map = ts_non_terminal_alias_map,
@@ -49086,6 +49127,13 @@ TS_PUBLIC const TSLanguage *tree_sitter_structured_text(void) {
     .keyword_lex_fn = ts_lex_keywords,
     .keyword_capture_token = sym_identifier,
     .primary_state_ids = ts_primary_state_ids,
+    .name = "structured_text",
+    .max_reserved_word_set_size = 0,
+    .metadata = {
+      .major_version = 0,
+      .minor_version = 1,
+      .patch_version = 0,
+    },
   };
   return &language;
 }
