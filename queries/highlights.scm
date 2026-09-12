@@ -119,7 +119,7 @@
 (doc_comment) @comment.documentation
 (inline_comment) @comment
 (block_comment) @comment
-(pragma) @preproc
+(pragma) @keyword.directive
 
 ; Operators
 [
