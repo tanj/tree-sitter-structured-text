@@ -1,148 +1,170 @@
-[
- (builtin_function)
-] @function.builtin
+; Identifiers and Variables
+(identifier) @variable
+(variable name: (identifier) @variable)
+(builtin_variable) @variable.builtin
 
-; ; Keywords
+; Functions and Methods
+(program_definition programName: (identifier) @function)
+(action_definition ActionName: (identifier) @function)
+(function_definition functionName: (identifier) @function)
+(function_block_definition functionName: (identifier) @function)
+(method_definition methodName: (identifier) @function.method)
+(call_expression functionName: (identifier) @function.call)
+(builtin_function) @function.builtin
+
+; Types
+(basic_data_type) @type.builtin
+(type_definition typeName: (variable) @type)
+(struct_definition typeName: (variable) @type)
+(union_definition typeName: (variable) @type)
+(enum_definition typeName: (variable) @type)
+(pointer_type) @type
+(reference_type) @type
+(array_type) @type
+
+; Parameters and Fields
+(parameter_assignment (parameter) @parameter)
+(structure_member (variable name: (identifier) @property))
+(structure_member (call_expression functionName: (identifier) @function.method.call))
+
+; Keywords - Declarations
 [
-  "ACTION"
-  "AND"
-  "ARRAY"
-  ;"AT"
-  "BOOL"
-  "BY"
-  "BYTE"
-  ;"CAL"
-  ;"CALC"
-  ;"CALCN"
-  "CASE"
-  "CONSTANT"
-  "DO"
-  "ELSE"
-  "ELSIF"
-  "END_ACTION"
-  "END_CASE"
-  "END_FOR"
-  "END_FUNCTION"
-  "END_FUNCTION_BLOCK"
-  "END_IF"
-  "END_METHOD"
-  "END_PROGRAM"
-  "END_REPEAT"
-  "END_STRUCT"
-  "END_TYPE"
-  "END_VAR"
-  "END_WHILE"
-  "EQ"
-  "EXIT"
-  "EXTENDS"
-  "FOR"
-  "FUNCTION"
-  "FUNCTION_BLOCK"
-  "IF"
-  "IMPLEMENTS"
-  "INTERNAL"
-  ;; "JMP"
-  ;; "JMPC"
-  ;; "JMPCN"
-  ;; "LD"
-  ;; "LDN"
-  ;; "MOVE"
-  "METHOD"
-  "NOT"
-  "OF"
-  "OR"
-  ;; "PARAMS"
-  "PERSISTENT"
-  "POINTER"
-  "PRIVATE"
   "PROGRAM"
-  "PROTECTED"
-  "PUBLIC"
-  "REFERENCE"
-  ;; "READ_ONLY"
-  ;; "READ_WRITE"
-  "REPEAT"
-  ;; "RET"
-  "RETAIN"
-  ;; "RETC"
-  ;; "RETCN"
-  "RETURN"
-  ;; "ST"
-  ;; "STN"
-  "STRUCT"
-  "SUB"
-  "THEN"
-  "TIME"
-  "TO"
-  "TOD"
+  "END_PROGRAM"
+  "ACTION"
+  "END_ACTION"
+  "FUNCTION"
+  "END_FUNCTION"
+  "FUNCTION_BLOCK"
+  "END_FUNCTION_BLOCK"
+  "METHOD"
+  "END_METHOD"
   "TYPE"
+  "END_TYPE"
+  "STRUCT"
+  "END_STRUCT"
+  "UNION"
+  "END_UNION"
   "VAR"
-  "VAR_ACCESS"
-  "VAR_CONFIG"
-  "VAR_EXTERNAL"
-  "VAR_GLOBAL"
-  "VAR_IN_OUT"
   "VAR_INPUT"
   "VAR_OUTPUT"
-  "VAR_STAT"
+  "VAR_IN_OUT"
+  "VAR_GLOBAL"
   "VAR_TEMP"
-  "WHILE"
-  "XOR"
+  "VAR_STAT"
+  "VAR_EXTERNAL"
+  "VAR_INST"
+  "VAR_CONFIG"
+  "VAR_ACCESS"
+  "VAR_GENERIC"
+  "END_VAR"
 ] @keyword
 
+; Keywords - Statements and Control Flow
 [
-  (inline_comment)
-  (block_comment)
-] @comment @spell
+  "IF"
+  "THEN"
+  "ELSIF"
+  "ELSE"
+  "END_IF"
+  "CASE"
+  "OF"
+  "END_CASE"
+  "FOR"
+  "TO"
+  "BY"
+  "DO"
+  "END_FOR"
+  "WHILE"
+  "END_WHILE"
+  "REPEAT"
+  "UNTIL"
+  "END_REPEAT"
+  "EXIT"
+  "CONTINUE"
+  "RETURN"
+] @keyword.control
 
-(doc_comment) @comment.documentation @spell
-(pragma) @comment.documentation
+; Keywords - Modifiers and Attributes
+[
+  "PUBLIC"
+  "PROTECTED"
+  "PRIVATE"
+  "INTERNAL"
+  "CONSTANT"
+  "RETAIN"
+  "PERSISTENT"
+  "EXTENDS"
+  "IMPLEMENTS"
+] @keyword.modifier
+
+; Literals
+(boolean) @boolean
+(integer) @number
+(floating_point) @number.float
+(binary) @number
+(octal) @number
+(hexidecimal) @number
+(time) @string.special
+(date) @string.special
+(time_of_day) @string.special
+(date_and_time) @string.special
+
+; Strings
+(string) @string
+(wstring) @string
+(escape_sequence) @string.escape
+
+; Comments and Pragma
+(doc_comment) @comment.documentation
+(inline_comment) @comment
+(block_comment) @comment
+(pragma) @preproc
+
+; Operators
+[
+  ":="
+  "+"
+  "-"
+  "*"
+  "**"
+  "/"
+  "="
+  "<"
+  ">"
+  "<="
+  ">="
+  "<>"
+  ".."
+] @operator
 
 [
- (builtin_variable)
-] @variable.builtin
+  "AND"
+  "OR"
+  "XOR"
+  "NOT"
+  "MOD"
+  "DIV"
+  "MUL"
+  "LT"
+  "GT"
+  "LE"
+  "GE"
+  "EQ"
+  "NE"
+] @operator.word
+
+; Punctuation
+[
+  "("
+  ")"
+  "["
+  "]"
+] @punctuation.bracket
 
 [
- (variable)
- (identifier)
- ] @variable
-
-[
- (structure_member)
- ] @variable.member
-
-[
- (string)
- (wstring)
- ] @string
-
-(boolean) @constant.builtin.boolean
-
-[
- (time)
- (date)
- (time_of_day)
- (date_and_time)
- ] @constant
-
-[
- (integer)
- (binary)
- (octal)
- (hexidecimal)
- ] @constant.numeric.integer @constant.numeric
-
-(floating_point) @constant.numeric.float
-
-[
- (basic_data_type)
- ] @type.builtin
-
-[
- (derived_data_type)
- (array_type)
- (pointer_type)
- (reference_type)
- ] @type
-
-(call_expression (identifier)) @function
+  ":"
+  ";"
+  ","
+  "."
+] @punctuation.delimiter
