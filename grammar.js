@@ -49,6 +49,7 @@ export default grammar({
       $.function_definition,
       $.function_block_definition,
       $.method_definition,
+      $.property_definition,
       $.type_definition,
       $.struct_definition,
       $.union_definition,
@@ -116,6 +117,19 @@ export default grammar({
       repeat($._declaration),
       repeat($.statement),
       'END_METHOD'
+    ),
+
+    property_definition: $ => seq(
+      choice('PROPERTY_GET', 'PROPERTY_SET', 'PROPERTY'),
+      optional($.access),
+      field('propertyName', $.identifier),
+      optional(
+        seq(':',
+          $._data_type,)
+      ),
+      repeat($._declaration),
+      repeat($.statement),
+      'END_PROPERTY'
     ),
 
     function_block_definition: $ => seq(

@@ -4,6 +4,7 @@
   ; (action_definition)
   ; (function_definition)
   ; (method_definition)
+  ; (property_definition)
   ; (function_block_definition)
   (type_definition)
   (struct_definition)
@@ -42,6 +43,7 @@
   ; "END_ACTION"
   ; "END_FUNCTION"
   ; "END_METHOD"
+  ; "END_PROPERTY"
   ; "END_FUNCTION_BLOCK"
   "END_TYPE"
   "END_STRUCT"

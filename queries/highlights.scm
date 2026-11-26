@@ -9,6 +9,7 @@
 (function_definition functionName: (identifier) @function)
 (function_block_definition functionName: (identifier) @function)
 (method_definition methodName: (identifier) @function.method)
+(property_definition propertyName: (identifier) @function.property)
 (call_expression functionName: (identifier) @function.call)
 (builtin_function) @function.builtin
 
@@ -39,6 +40,10 @@
   "END_FUNCTION_BLOCK"
   "METHOD"
   "END_METHOD"
+  "PROPERTY"
+  "PROPERTY_GET"
+  "PROPETRY_SET"
+  "END_PROPERTY"
   "TYPE"
   "END_TYPE"
   "STRUCT"
