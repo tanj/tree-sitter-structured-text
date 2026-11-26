@@ -44,6 +44,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "property_definition"
+        },
+        {
+          "type": "SYMBOL",
           "name": "type_definition"
         },
         {
@@ -320,6 +324,87 @@
         {
           "type": "STRING",
           "value": "END_METHOD"
+        }
+      ]
+    },
+    "property_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "PROPERTY_GET"
+            },
+            {
+              "type": "STRING",
+              "value": "PROPERTY_SET"
+            },
+            {
+              "type": "STRING",
+              "value": "PROPERTY"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "access"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "propertyName",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_data_type"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_declaration"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "statement"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "END_PROPERTY"
         }
       ]
     },

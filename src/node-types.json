@@ -46,6 +46,10 @@
         "named": true
       },
       {
+        "type": "property_definition",
+        "named": true
+      },
+      {
         "type": "struct_definition",
         "named": true
       },
@@ -1287,6 +1291,104 @@
     }
   },
   {
+    "type": "property_definition",
+    "named": true,
+    "fields": {
+      "propertyName": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "access",
+          "named": true
+        },
+        {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "basic_data_type",
+          "named": true
+        },
+        {
+          "type": "derived_data_type",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "reference_type",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        },
+        {
+          "type": "var_access_declaration",
+          "named": true
+        },
+        {
+          "type": "var_config_declaration",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
+          "named": true
+        },
+        {
+          "type": "var_external_declaration",
+          "named": true
+        },
+        {
+          "type": "var_generic_constant_declaration",
+          "named": true
+        },
+        {
+          "type": "var_global_declaration",
+          "named": true
+        },
+        {
+          "type": "var_in_out_declaration",
+          "named": true
+        },
+        {
+          "type": "var_input_declaration",
+          "named": true
+        },
+        {
+          "type": "var_instance_declaration",
+          "named": true
+        },
+        {
+          "type": "var_output_declaration",
+          "named": true
+        },
+        {
+          "type": "var_stat_declaration",
+          "named": true
+        },
+        {
+          "type": "var_temp_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "reference_type",
     "named": true,
     "fields": {},
@@ -2159,6 +2261,10 @@
     "named": false
   },
   {
+    "type": "END_PROPERTY",
+    "named": false
+  },
+  {
     "type": "END_REPEAT",
     "named": false
   },
@@ -2308,6 +2414,18 @@
   },
   {
     "type": "PROGRAM",
+    "named": false
+  },
+  {
+    "type": "PROPERTY",
+    "named": false
+  },
+  {
+    "type": "PROPERTY_GET",
+    "named": false
+  },
+  {
+    "type": "PROPERTY_SET",
     "named": false
   },
   {
