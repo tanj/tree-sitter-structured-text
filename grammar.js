@@ -50,6 +50,7 @@ export default grammar({
       $.function_block_definition,
       $.method_definition,
       $.property_definition,
+      $.interface_definition,
       $.type_definition,
       $.struct_definition,
       $.union_definition,
@@ -140,6 +141,15 @@ export default grammar({
       repeat($._declaration),
       repeat(choice($.method_definition, $.statement)),
       'END_FUNCTION_BLOCK'
+    ),
+
+    interface_definition: $ => seq(
+      'INTERFACE',
+      field('interfaceName', $.identifier),
+      optional($.itf_extend),
+      // repeat($._declaration),
+      // repeat(choice($.method_definition, $.statement)),
+      'END_INTERFACE'
     ),
 
     body_only_definition: $ => seq(
@@ -281,6 +291,11 @@ export default grammar({
     extend: $ => seq(
       'EXTENDS',
       $._identifier_path,
+    ),
+
+    itf_extend: $ => seq(
+      'EXTENDS',
+      commaSep1($._identifier_path),
     ),
 
     implement: $ => seq(

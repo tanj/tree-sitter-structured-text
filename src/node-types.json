@@ -38,6 +38,10 @@
         "named": true
       },
       {
+        "type": "interface_definition",
+        "named": true
+      },
+      {
         "type": "method_definition",
         "named": true
       },
@@ -1036,6 +1040,51 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "interface_definition",
+    "named": true,
+    "fields": {
+      "interfaceName": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "itf_extend",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "itf_extend",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "structure_member",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2253,6 +2302,10 @@
     "named": false
   },
   {
+    "type": "END_INTERFACE",
+    "named": false
+  },
+  {
     "type": "END_METHOD",
     "named": false
   },
@@ -2338,6 +2391,10 @@
   },
   {
     "type": "INDEXOF",
+    "named": false
+  },
+  {
+    "type": "INTERFACE",
     "named": false
   },
   {

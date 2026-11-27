@@ -48,6 +48,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "interface_definition"
+        },
+        {
+          "type": "SYMBOL",
           "name": "type_definition"
         },
         {
@@ -473,6 +477,39 @@
         {
           "type": "STRING",
           "value": "END_FUNCTION_BLOCK"
+        }
+      ]
+    },
+    "interface_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "INTERFACE"
+        },
+        {
+          "type": "FIELD",
+          "name": "interfaceName",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "itf_extend"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "END_INTERFACE"
         }
       ]
     },
@@ -1098,6 +1135,40 @@
         {
           "type": "SYMBOL",
           "name": "_identifier_path"
+        }
+      ]
+    },
+    "itf_extend": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "EXTENDS"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_identifier_path"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_identifier_path"
+                  }
+                ]
+              }
+            }
+          ]
         }
       ]
     },

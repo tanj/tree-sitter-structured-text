@@ -19,6 +19,7 @@
 (struct_definition typeName: (variable) @type)
 (union_definition typeName: (variable) @type)
 (enum_definition typeName: (variable) @type)
+(interface_definition interfaceName: (identifier) @type)
 (pointer_type) @type
 (reference_type) @type
 (array_type) @type
@@ -42,8 +43,10 @@
   "END_METHOD"
   "PROPERTY"
   "PROPERTY_GET"
-  "PROPETRY_SET"
+  "PROPERTY_SET"
   "END_PROPERTY"
+  "INTERFACE"
+  "END_INTERFACE"
   "TYPE"
   "END_TYPE"
   "STRUCT"
